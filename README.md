@@ -1,7 +1,3 @@
-Desculpe pela confusão, acabei enviando um exemplo de README em inglês. Aqui está um exemplo de README adequado para o seu projeto, escrito em português:
-
----
-
 # Mapeamento de Coletivos de Música Eletrônica no Brasil
 
 ![GitHub contributors](https://img.shields.io/github/contributors/lucaoskaique/mapadecoletivos-app)
