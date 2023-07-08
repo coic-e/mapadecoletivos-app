@@ -64,7 +64,3 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 Seu nome - seu_email@example.com
 
 Link do projeto: [https://github.com/lucaoskaique/mapadecoletivos-app](https://github.com/lucaoskaique/mapadecoletivos-app)
-
----
-
-Você deve substituir `lucaoskaique` e `mapadecoletivos-app` com seu nome de usuário e o nome do repositório no GitHub. Certifique-se também de atualizar o link de contato e outros detalhes conforme necessário.
