@@ -4,8 +4,8 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import Select from "react-select";
 
 import "../styles/pages/create-collective.css";
-import Sidebar from "../components/Sidebar";
 import mapIcon from "../utils/mapIcon";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const optionsUf = [
   { value: "AL", label: "AL" },
