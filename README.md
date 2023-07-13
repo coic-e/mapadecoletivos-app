@@ -1,46 +1,66 @@
-# Getting Started with Create React App
+# Mapeamento de Coletivos de Música Eletrônica no Brasil
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![GitHub contributors](https://img.shields.io/github/contributors/lucaoskaique/mapadecoletivos-app)
+![GitHub forks](https://img.shields.io/github/forks/lucaoskaique/mapadecoletivos-app)
+![GitHub stars](https://img.shields.io/github/stars/lucaoskaique/mapadecoletivos-app)
+![GitHub issues](https://img.shields.io/github/issues/lucaoskaique/mapadecoletivos-app)
+![MIT license](https://img.shields.io/github/license/lucaoskaique/mapadecoletivos-app)
+![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555)
 
-## Available Scripts
+## Sobre o Projeto
 
-In the project directory, you can run:
+Este projeto é um mapa interativo feito em React para visualizar coletivos de música eletrônica em todo o Brasil. O projeto é opensource e encorajamos contribuições.
 
-### `yarn start`
+### Feito Com
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+O projeto foi criado utilizando as seguintes tecnologias:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* [React](https://pt-br.reactjs.org/)
+* [Mapbox](https://www.mapbox.com/)
 
-### `yarn test`
+## Começando
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Siga as instruções abaixo para rodar o projeto localmente.
 
-### `yarn build`
+### Pré-requisitos
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Para rodar o projeto na máquina local, é necessário ter instalado o [Node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/). Verifique se você possui essas ferramentas instaladas antes de prosseguir.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Instalação
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone o repositório
+   ```sh
+   git clone https://github.com/lucaoskaique/mapadecoletivos-app.git
+   ```
+2. Instale os pacotes do NPM
+   ```sh
+   npm install
+   ```
+3. Rode o projeto
+   ```sh
+   npm start
+   ```
 
-### `yarn eject`
+## Uso
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Este projeto pode ser útil para pessoas interessadas em música eletrônica e para a comunidade de produtores e DJs, ajudando a localizar coletivos e promover colaborações. Você pode contribuir adicionando mais coletivos ao mapa!
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contribuindo
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Qualquer contribuição que você fizer será **muito apreciada**.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Faça um Fork do projeto
+2. Crie a sua Feature Branch (`git checkout -b feature/novaFeature`)
+3. Faça um commit das suas alterações (`git commit -m 'Adicionei uma nova feature'`)
+4. Faça um Push da Branch (`git push origin feature/novaFeature`)
+5. Abra um Pull Request
 
-## Learn More
+## Licença
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contato
+
+Seu nome - seu_email@example.com
+
+Link do projeto: [https://github.com/lucaoskaique/mapadecoletivos-app](https://github.com/lucaoskaique/mapadecoletivos-app)
