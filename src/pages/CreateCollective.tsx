@@ -1,13 +1,16 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import Select from "react-select";
-
 import "../styles/pages/create-collective.css";
 import mapIcon from "../utils/mapIcon";
 import Sidebar from "../components/Sidebar/Sidebar";
 
-const optionsUf = [
+interface Option {
+  value: string;
+  label: string;
+}
+
+const optionsUf: Option[] = [
   { value: "AL", label: "AL" },
   { value: "AP", label: "AP" },
   { value: "AM", label: "AM" },
@@ -36,7 +39,34 @@ const optionsUf = [
   { value: "TO", label: "TO" },
 ];
 
+interface FormData {
+  name: string;
+  about: string;
+  email: string;
+  uf: string;
+  city: string;
+  tipo: string;
+  // other form fields...
+}
+
 function CreateCollective() {
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    about: "",
+    email: "",
+    uf: "",
+    city: "",
+    tipo: "",
+    // other form fields...
+  });
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const radioOptions = ["festa", "festarua", "festival", "label", "radiopodcast", "nucleo", "club", "bar", "produtora", "portalblog", "outro"];
+
   return (
     <div id="page-create-collective">
       <Sidebar />
@@ -45,6 +75,7 @@ function CreateCollective() {
         <form className="create-collective-form">
           <fieldset>
             <legend>Dados</legend>
+
             <MapContainer
               center={[-30.0313778, -51.2256725]}
               zoom={16}
@@ -66,93 +97,44 @@ function CreateCollective() {
 
             <div className="input-block">
               <label htmlFor="name">Nome</label>
-              <input id="name" placeholder="Nome"/>
+              <input id="name" name="name" value={formData.name} onChange={handleInputChange} placeholder="Nome"/>
             </div>
 
             <div className="input-block">
-              <label htmlFor="about">
-                Sobre <span>Máximo de 300 caracteres</span>
-              </label>
-              <textarea id="name" maxLength={300}></textarea>
+              <label htmlFor="about">Sobre <span>Máximo de 300 caracteres</span></label>
+              <textarea id="about" name="about" maxLength={300} value={formData.about} onChange={handleInputChange}></textarea>
             </div>
 
             <div className="input-block">
               <label htmlFor="email">E-mail</label>
-              <input id="name" />
+              <input id="email" name="email" value={formData.email} onChange={handleInputChange} />
             </div>
 
             <div className="input-block-container">
               <div className="input-block select">
                 <label htmlFor="uf">UF</label>
-                <select>
-                  <option value="teste">TESTE</option>
+                <select id="uf" name="uf" value={formData.uf} onChange={handleInputChange}>
+                  {optionsUf.map((option) => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                  ))}
                 </select>
               </div>
 
               <div className="input-block">
                 <label htmlFor="city">Cidade</label>
-                <input id="name" />
+                <input id="city" name="city" value={formData.city} onChange={handleInputChange} />
               </div>
             </div>
 
             <div className="container">
               <label className="flex-item">O Coletivo é?</label>
               <div className="wrapper">
-                <label className="flex-item">
-                  <input type="radio" value="festa" name="tipo" />
-                  <span>Festa</span>
-                </label>
-
-                <label className="flex-item">
-                  <input type="radio" value="festarua" name="tipo" />
-                  <span>Festa de rua</span>
-                </label>
-
-                <label className="flex-item">
-                  <input type="radio" value="festival" name="tipo" />
-                  <span>Festival</span>
-                </label>
-
-                <label className="flex-item">
-                  <input type="radio" value="label" name="tipo" />
-                  <span>Label</span>
-                </label>
-
-                <label className="flex-item">
-                  <input type="radio" value="radiopodcast" name="tipo" />
-                  <span>Rádio/Podcast</span>
-                </label>
-
-                <label className="flex-item">
-                  <input type="radio" value="nucleo" name="tipo" />
-                  <span>Núcleo</span>
-                </label>
-
-                <label className="flex-item">
-                  <input type="radio" value="club" name="tipo" />
-                  <span>Club</span>
-                </label>
-
-                <label className="flex-item">
-                  <input type="radio" value="bar" name="tipo" />
-                  <span>Bar</span>
-                </label>
-
-                <label className="flex-item">
-                  <input type="radio" value="produtora" name="tipo" />
-                  <span>Produtora</span>
-                </label>
-
-                <label className="flex-item">
-                  <input type="radio" value="portalblog" name="tipo" />
-                  <span>Portal/Blog</span>
-                </label>
-
-                <label className="flex-item">
-                  <input type="radio" value="outro" name="tipo" />
-                  <span>Outro</span>
-                </label>
-
+                {radioOptions.map((option) => (
+                  <label className="flex-item" key={option}>
+                    <input type="radio" value={option} name="tipo" onChange={handleInputChange}/>
+                    <span>{option}</span>
+                  </label>
+                ))}
                 <div className="input-block input">
                   <input id="name" />
                 </div>
@@ -180,3 +162,4 @@ function CreateCollective() {
 }
 
 export default CreateCollective;
+
