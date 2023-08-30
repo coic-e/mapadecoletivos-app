@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import "../styles/pages/create-collective.css";
 import mapIcon from "../utils/mapIcon";
 import Sidebar from "../components/Sidebar/Sidebar";
@@ -64,6 +64,8 @@ function CreateCollective() {
     social: "",
   });
 
+  const [position, setPosition] = useState<[number, number] | null>(null);
+
   const handleInputChange = (
     event: ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -87,6 +89,15 @@ function CreateCollective() {
     "outro",
   ];
 
+  const handleMapClick = (lat: number, lng: number) => {
+    setPosition([lat, lng]);
+    setFormData({
+      ...formData,
+      latitude: lat.toString(),
+      longitude: lng.toString()
+    });
+  };
+
   return (
     <div id="page-create-collective">
       <Sidebar />
@@ -105,14 +116,17 @@ function CreateCollective() {
               scrollWheelZoom={false}
               doubleClickZoom={false}
             >
+              <MapClickHandler />
               <TileLayer
                 url={`https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
               />
-              <Marker
-                interactive={false}
-                icon={mapIcon}
-                position={[-30.0313778, -51.2256725]}
-              ></Marker>
+              {position && (
+                <Marker
+                  position={position}
+                  interactive={false}
+                  icon={mapIcon}
+                ></Marker>
+              )}
             </MapContainer>
 
             <div className="input-block">
@@ -214,6 +228,22 @@ function CreateCollective() {
       </main>
     </div>
   );
+}
+
+function MapClickHandler() {
+  const [position, setPosition] = useState<[number, number] | null>(null); // To hold the position state
+
+  useMapEvents({
+    click: (e) => {
+      setPosition([e.latlng.lat, e.latlng.lng]);
+      // Here, you can also update your formData state with these coordinates if needed
+    },
+    // You can also handle other map events here if needed
+  });
+
+  return position ? (
+    <Marker position={position} interactive={false} icon={mapIcon} />
+  ) : null; // Render marker on click position, or nothing if not clicked yet
 }
 
 export default CreateCollective;
