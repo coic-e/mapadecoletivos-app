@@ -171,6 +171,12 @@
   border-left: 0;
 }
 
+.create-collective-form .leaflet-container {
+  margin-bottom: 1.5rem;
+  border-radius: 1.25rem;
+  border: 1px solid #d3e2e5;
+}
+
 /* Confirm Button */
 .create-collective-form .confirm-button {
   margin-top: 4rem;
