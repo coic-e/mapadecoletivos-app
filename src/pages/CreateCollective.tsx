@@ -45,8 +45,10 @@ interface FormData {
   email: string;
   uf: string;
   city: string;
-  tipo: string;
-  // other form fields...
+  type: string;
+  latitude: string;
+  longitude: string;
+  social: string;
 }
 
 function CreateCollective() {
@@ -56,16 +58,34 @@ function CreateCollective() {
     email: "",
     uf: "",
     city: "",
-    tipo: "",
-    // other form fields...
+    type: "",
+    latitude: "",
+    longitude: "",
+    social: "",
   });
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const radioOptions = ["festa", "festarua", "festival", "label", "radiopodcast", "nucleo", "club", "bar", "produtora", "portalblog", "outro"];
+  const radioOptions = [
+    "festa",
+    "festarua",
+    "festival",
+    "label",
+    "radiopodcast",
+    "nucleo",
+    "club",
+    "bar",
+    "produtora",
+    "portalblog",
+    "outro",
+  ];
 
   return (
     <div id="page-create-collective">
@@ -97,32 +117,62 @@ function CreateCollective() {
 
             <div className="input-block">
               <label htmlFor="name">Nome</label>
-              <input id="name" name="name" value={formData.name} onChange={handleInputChange} placeholder="Nome"/>
+              <input
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+              />
             </div>
 
             <div className="input-block">
-              <label htmlFor="about">Sobre <span>Máximo de 300 caracteres</span></label>
-              <textarea id="about" name="about" maxLength={300} value={formData.about} onChange={handleInputChange}></textarea>
+              <label htmlFor="about">
+                Sobre <span>Máximo de 300 caracteres</span>
+              </label>
+              <textarea
+                id="about"
+                name="about"
+                maxLength={300}
+                value={formData.about}
+                onChange={handleInputChange}
+              ></textarea>
             </div>
 
             <div className="input-block">
               <label htmlFor="email">E-mail</label>
-              <input id="email" name="email" value={formData.email} onChange={handleInputChange} />
+              <input
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+              />
             </div>
 
             <div className="input-block-container">
               <div className="input-block select">
                 <label htmlFor="uf">UF</label>
-                <select id="uf" name="uf" value={formData.uf} onChange={handleInputChange}>
+                <select
+                  id="uf"
+                  name="uf"
+                  value={formData.uf}
+                  onChange={handleInputChange}
+                >
                   {optionsUf.map((option) => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
                   ))}
                 </select>
               </div>
 
               <div className="input-block">
                 <label htmlFor="city">Cidade</label>
-                <input id="city" name="city" value={formData.city} onChange={handleInputChange} />
+                <input
+                  id="city"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleInputChange}
+                />
               </div>
             </div>
 
@@ -131,7 +181,12 @@ function CreateCollective() {
               <div className="wrapper">
                 {radioOptions.map((option) => (
                   <label className="flex-item" key={option}>
-                    <input type="radio" value={option} name="tipo" onChange={handleInputChange}/>
+                    <input
+                      type="radio"
+                      value={option}
+                      name="type"
+                      onChange={handleInputChange}
+                    />
                     <span>{option}</span>
                   </label>
                 ))}
@@ -162,4 +217,3 @@ function CreateCollective() {
 }
 
 export default CreateCollective;
-
