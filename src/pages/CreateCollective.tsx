@@ -1,9 +1,11 @@
-import React, { ChangeEvent, useState } from "react";
-import { FiPlus } from "react-icons/fi";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { FiDelete, FiPlus, FiXSquare } from "react-icons/fi";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import "../styles/pages/create-collective.css";
 import mapIcon from "../utils/mapIcon";
 import Sidebar from "../components/Sidebar/Sidebar";
+import api from "../services/api";
+import { useHistory } from "react-router-dom";
 
 interface Option {
   value: string;
@@ -49,9 +51,12 @@ interface FormData {
   latitude: string;
   longitude: string;
   social: string;
+  images?: File[];
 }
 
 function CreateCollective() {
+  const history = useHistory();
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     about: "",
@@ -62,9 +67,12 @@ function CreateCollective() {
     latitude: "",
     longitude: "",
     social: "",
+    images: [],
   });
 
   const [position, setPosition] = useState<[number, number] | null>(null);
+  const [images, setImages] = useState<File[]>([]);
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
 
   const handleInputChange = (
     event: ChangeEvent<
@@ -94,8 +102,57 @@ function CreateCollective() {
     setFormData({
       ...formData,
       latitude: lat.toString(),
-      longitude: lng.toString()
+      longitude: lng.toString(),
     });
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const data = new FormData();
+
+    data.append("name", formData.name);
+    data.append("about", formData.about);
+    data.append("email", formData.email);
+    data.append("uf", formData.uf);
+    data.append("city", formData.city);
+    data.append("type", formData.type);
+    data.append("latitude", formData.latitude);
+    data.append("longitude", formData.longitude);
+    data.append("social", formData.social);
+    
+    images.forEach((image) => {
+      data.append("images", image);
+    });
+
+    await api.post("collectives", data).then((response) => {
+      alert("Cadastro realizado com sucesso!");
+      history.push("/app");
+    });
+  };
+
+  const handleSelectedImage = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) {
+      return;
+    }
+
+    const selectedImages = Array.from(event.target.files);
+    setImages(selectedImages);
+
+    const selectedImagesPreview = selectedImages.map((image) => {
+      return URL.createObjectURL(image);
+    });
+
+    setPreviewImages(selectedImagesPreview);
+  };
+
+  const handleDeleteImage = (index: number) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImages(newImages);
+
+    const newPreviewImages = [...previewImages];
+    newPreviewImages.splice(index, 1);
+    setPreviewImages(newPreviewImages);
   };
 
   return (
@@ -103,7 +160,7 @@ function CreateCollective() {
       <Sidebar />
 
       <main>
-        <form className="create-collective-form">
+        <form className="create-collective-form" onSubmit={handleSubmit}>
           <fieldset>
             <legend>Dados</legend>
 
@@ -111,22 +168,13 @@ function CreateCollective() {
               center={[-30.0313778, -51.2256725]}
               zoom={16}
               style={{ width: "100%", height: 280 }}
-              dragging={false}
-              zoomControl={false}
               scrollWheelZoom={false}
               doubleClickZoom={false}
             >
-              <MapClickHandler />
+              <MapClickHandler onClick={handleMapClick} />
               <TileLayer
                 url={`https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
               />
-              {position && (
-                <Marker
-                  position={position}
-                  interactive={false}
-                  icon={mapIcon}
-                ></Marker>
-              )}
             </MapContainer>
 
             <div className="input-block">
@@ -158,6 +206,16 @@ function CreateCollective() {
                 id="email"
                 name="email"
                 value={formData.email}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="input-block">
+              <label htmlFor="social">Social</label>
+              <input
+                id="social"
+                name="social"
+                value={formData.social}
                 onChange={handleInputChange}
               />
             </div>
@@ -213,11 +271,28 @@ function CreateCollective() {
             <div className="input-block">
               <label htmlFor="images">Fotos</label>
 
-              <div className="uploaded-image"></div>
+              <div className="images-container">
+                {previewImages.map((image, index) => {
+                  return (
+                    <div key={image} className="image-item">
+                      <img key={image} src={image} alt={formData.name} />;
+                      <button onClick={() => handleDeleteImage(index)}>
+                        <FiXSquare color="#000" />
+                      </button>
+                    </div>
+                  );
+                })}
 
-              <button className="new-image">
-                <FiPlus size={24} color="#15b6d6" />
-              </button>
+                <label htmlFor="image[]" className="new-image">
+                  <FiPlus size={24} color="#15b6d6" />
+                </label>
+              </div>
+              <input
+                multiple
+                onChange={handleSelectedImage}
+                type="file"
+                id="image[]"
+              />
             </div>
           </fieldset>
 
@@ -230,12 +305,17 @@ function CreateCollective() {
   );
 }
 
-function MapClickHandler() {
+function MapClickHandler({
+  onClick,
+}: {
+  onClick: (lat: number, lng: number) => void;
+}) {
   const [position, setPosition] = useState<[number, number] | null>(null); // To hold the position state
 
   useMapEvents({
     click: (e) => {
       setPosition([e.latlng.lat, e.latlng.lng]);
+      onClick(e.latlng.lat, e.latlng.lng);
       // Here, you can also update your formData state with these coordinates if needed
     },
     // You can also handle other map events here if needed
