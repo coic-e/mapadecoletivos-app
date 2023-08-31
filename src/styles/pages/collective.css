@@ -65,6 +65,12 @@
   margin-bottom: 8px;
 }
 
+.collective-details .collective-details-content h2 {
+  color: #4d6f80;
+  line-height: 54px;
+  margin-bottom: 8px;
+}
+
 .collective-details .collective-details-content p {
   line-height: 28px;
   color: #5c8599;
