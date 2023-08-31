@@ -1,10 +1,10 @@
 # Mapeamento de Coletivos de Música Eletrônica no Brasil
 
 ![GitHub contributors](https://img.shields.io/github/contributors/lucaoskaique/mapadecoletivos-app)
-![GitHub forks](https://img.shields.io/github/forks/lucaoskaique/mapadecoletivos-app)
-![GitHub stars](https://img.shields.io/github/stars/lucaoskaique/mapadecoletivos-app)
-![GitHub issues](https://img.shields.io/github/issues/lucaoskaique/mapadecoletivos-app)
-![MIT license](https://img.shields.io/github/license/lucaoskaique/mapadecoletivos-app)
+![GitHub forks](https://img.shields.io/github/forks/coic-e/mapadecoletivos-app)
+![GitHub stars](https://img.shields.io/github/stars/coic-e/mapadecoletivos-app)
+![GitHub issues](https://img.shields.io/github/issues/coic-e/mapadecoletivos-app)
+![MIT license](https://img.shields.io/github/license/coic-e/mapadecoletivos-app)
 ![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555)
 
 ## Sobre o Projeto
