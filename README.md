@@ -28,17 +28,17 @@ Para rodar o projeto na máquina local, é necessário ter instalado o [Node.js]
 
 ### Instalação
 
-1. Clone o repositório
+1.  Clone o repositório
    ```sh
    git clone https://github.com/lucaoskaique/mapadecoletivos-app.git
    ```
 2. Instale os pacotes do NPM
    ```sh
-   npm install
+   yarn install ou npm install
    ```
 3. Rode o projeto
    ```sh
-   npm start
+   yarn start ou npm run start
    ```
 
 ## Uso
@@ -50,7 +50,7 @@ Este projeto pode ser útil para pessoas interessadas em música eletrônica e p
 Qualquer contribuição que você fizer será **muito apreciada**.
 
 1. Faça um Fork do projeto
-2. Crie a sua Feature Branch (`git checkout -b feature/novaFeature`)
+2. Crie a sua Feature Branch (`git checkout -b feature/nomeDoIssue`)
 3. Faça um commit das suas alterações (`git commit -m 'Adicionei uma nova feature'`)
 4. Faça um Push da Branch (`git push origin feature/novaFeature`)
 5. Abra um Pull Request
@@ -61,6 +61,6 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ## Contato
 
-Seu nome - seu_email@example.com
+Seu nome - me@lucaskaique.com.br
 
-Link do projeto: [https://github.com/lucaoskaique/mapadecoletivos-app](https://github.com/lucaoskaique/mapadecoletivos-app)
+Link do projeto: [https://github.com/coic-e/mapadecoletivos-app](https://github.com/coic-e/mapadecoletivos-app)
