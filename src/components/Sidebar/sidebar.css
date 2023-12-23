@@ -1,8 +1,20 @@
+:root {
+  --primary-color: #00d4ff;
+  --secondary-color: #ab1818;
+  --text-color: #fff;
+  --hover-color: rgb(0, 195, 255);
+}
+
 aside.app-sidebar {
-  position: fixed;
+  position: fixed !important;
   height: 100vh;
   padding: 0 24px 32px;
-  background: linear-gradient(180deg, #ffd600, #ff9696);
+  /* padding: 32px 24px; */
+  background: linear-gradient(
+    180deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,7 +35,7 @@ aside.app-sidebar footer button {
   width: 48px;
   height: 48px;
   border: none;
-  background: #e34edd;
+  background: var(--primary-color);
   border-radius: 16px;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -34,5 +46,5 @@ aside.app-sidebar footer button {
 
 aside.app-sidebar footer a:hover,
 aside.app-sidebar footer button:hover {
-  background: #ff9696;
+  background: var(--hover-color);
 }

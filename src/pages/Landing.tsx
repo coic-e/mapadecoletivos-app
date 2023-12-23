@@ -9,8 +9,8 @@ function Landing() {
     <div id="page-landing">
       <div className="content-wrapper">
         <main>
-          <h1>Cultura de Pista</h1>
-          <p>Máquina de investigar o rolê</p>
+          <h1>MAPA DE RAVE</h1>
+          <p>Descubra a Batida do Underdroung</p>
         </main>
 
         <Link to="/app" className="enter-app">
