@@ -84,16 +84,16 @@ function CreateCollective() {
   };
 
   const radioOptions = [
-    "festa",
-    "festarua",
-    "festival",
-    "label",
-    "radiopodcast",
-    "nucleo",
-    "club",
-    "bar",
-    "produtora",
-    "portalblog",
+    "Festa",
+    "Festival",
+    "Label",
+    "Radio",
+    "Podcast",
+    "Coletivo",
+    "Nucleo",
+    "Club",
+    "Bar",
+    "Produtora",
     "outro",
   ];
 
@@ -119,7 +119,7 @@ function CreateCollective() {
     data.append("latitude", formData.latitude);
     data.append("longitude", formData.longitude);
     data.append("social", formData.social);
-    
+
     images.forEach((image) => {
       data.append("images", image);
     });
@@ -220,7 +220,7 @@ function CreateCollective() {
               />
             </div>
 
-            <div className="input-block-container">
+            <div className="input-block">
               <div className="input-block select">
                 <label htmlFor="uf">UF</label>
                 <select
@@ -235,9 +235,10 @@ function CreateCollective() {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div>              
+            </div>
 
-              <div className="input-block">
+            <div className="input-block">
                 <label htmlFor="city">Cidade</label>
                 <input
                   id="city"
@@ -246,19 +247,19 @@ function CreateCollective() {
                   onChange={handleInputChange}
                 />
               </div>
-            </div>
 
-            <div className="container">
-              <label className="flex-item">O Coletivo é?</label>
-              <div className="wrapper">
+            <div className="input-block">
+              <label>O Coletivo é?</label>
+              <div className="input-block radio-group">
                 {radioOptions.map((option) => (
-                  <label className="flex-item" key={option}>
+                  <label className="radio-container" key={option}>
                     <input
                       type="radio"
                       value={option}
                       name="type"
                       onChange={handleInputChange}
                     />
+                    <span className="custom-radio"></span>
                     <span>{option}</span>
                   </label>
                 ))}

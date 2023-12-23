@@ -33,8 +33,6 @@ function CollectivesMap() {
     <div id="page-map">
       <aside>
         <header>
-          {/* <img src={logoDiscoball} alt="Discoball" width="214" height="224" /> */}
-
           <h2>Coletivos de música eletrônica no Brasil</h2>
           <p>
             Você sabia que são mais de 260 atores que compõem nosso cenário?

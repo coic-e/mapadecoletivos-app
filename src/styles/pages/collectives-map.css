@@ -1,93 +1,111 @@
+:root {
+  --primary-color: #00d4ff;
+  --secondary-color: #ab1818;
+  --text-color: #fff;
+  --hover-color: rgb(0, 195, 255);
+}
+
 #page-map {
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(180deg, #ffd600 0%, #ff9696 100%);
-    position: relative;
-    display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    180deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
+  position: relative;
+  display: flex;
 }
 
 #page-map aside {
-    width: 495px;
-    padding: 80px;
+  width: 495px;
+  padding: 5rem;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 
-    background: url('../../images/discoball.svg') no-repeat center top;
-    background-size: 214px 224px;
+  background: url("../../images/discoball.svg") no-repeat center top;
+  background-size: 214px 224px;
 }
 
-#page-map aside h2{
-    font-size: 40px;
-    font-weight: 800;
-    line-height: 42px;
-    margin-top: 200px;
+#page-map aside h2 {
+  text-transform: uppercase;
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 4.9rem;
+  color: var(--secondary-color);
+
+  text-shadow: -1px 2px 1px #000;
 }
 
-#page-map aside p{
-    line-height: 28px;
-    margin-top: 24px;
+#page-map aside p {
+  line-height: 3rem;
+  margin-top: 3rem;
+  font-size: 4rem;
+  color: var(--text-color);
+
+  text-shadow: -1px 2px 1px #000;
 }
 
 #page-map .leaflet-container {
-    z-index: 5;
+  z-index: 5;
 }
 
-#page-map .create-collective{
-    position: absolute;
+#page-map .create-collective {
+  position: absolute;
 
-    right: 40px;
-    bottom: 40px;
+  right: 40px;
+  bottom: 40px;
 
-    z-index: 10;
+  z-index: 10;
 
-    width: 64px;
-    height: 64px;
-    background: #E34EDD;
-    border-radius: 20px;
+  width: 64px;
+  height: 64px;
+  background: var(--primary-color);
+  border-radius: 20px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    transition: background-color 0.2s;
+  transition: background-color 0.2s;
 }
 
 #page-map .create-collective:hover {
-    background: #ff9696;
+  background: var(--hover-color);
 }
 
-#page-map .map-popup .leaflet-popup-content-wrapper{
-    background: rgba(255, 255  , 255, 0.8);
-    border-radius: 20px;
-    box-shadow: none;
+#page-map .map-popup .leaflet-popup-content-wrapper {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: none;
 }
 
-#page-map .map-popup .leaflet-popup-content{
-    color: #A3079C;
-    font-size: 20px;
-    margin: 8px 12px;
-    font-weight: bold;
+#page-map .map-popup .leaflet-popup-content {
+  color: var(--text-color);
+  font-size: 20px;
+  margin: 8px 12px;
+  font-weight: bold;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#page-map .map-popup .leaflet-popup-content a{
-    width: 40px;
-    height: 40px;
-    background: #E34EDD;
-    box-shadow: 17.2868px 27.6589px 41.4884px rgba(23, 142  , 166, 0.16);
-    border-radius: 12px;
+#page-map .map-popup .leaflet-popup-content a {
+  width: 40px;
+  height: 40px;
+  background: var(--primary-color);
+  box-shadow: 17.2868px 27.6589px 41.4884px rgba(23, 142, 166, 0.16);
+  border-radius: 12px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#page-map .map-popup .leaflet-popup-tip-container{
-    display: none;
+#page-map .map-popup .leaflet-popup-tip-container {
+  display: none;
 }
-
