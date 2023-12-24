@@ -51,5 +51,8 @@
     "@types/react-leaflet": "^2.8.0",
     "@types/react-router-dom": "^5.1.7",
     "@types/react-select": "^4.0.13"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
