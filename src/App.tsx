@@ -1,15 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import './styles/global.css';
+import "./styles/global.css";
 import "leaflet/dist/leaflet.css";
 
-import Routes from './routes';
+import { router } from "./routes";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
-  return (
-    <Routes />
-  );
-
+  return <RouterProvider router={router} />;
 }
 
 export default App;
