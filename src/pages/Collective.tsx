@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
-
+const { VITE_USERNAME, VITE_STYLE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 import "leaflet/dist/leaflet.css";
 
 import "../styles/pages/collective.css";
@@ -104,7 +104,8 @@ function Collective() {
                   doubleClickZoom={false}
                 >
                   <TileLayer
-                    url={`https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                    attribution='Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
+                    url={`https://api.mapbox.com/styles/v1/${VITE_USERNAME}/${VITE_STYLE_ID}/tiles/256/{z}/{x}/{y}@2x?access_token=${VITE_ACCESS_TOKEN}`}
                   />
                   <Marker
                     interactive={false}
