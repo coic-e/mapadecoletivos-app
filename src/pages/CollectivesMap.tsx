@@ -19,15 +19,15 @@ interface Collective {
 function CollectivesMap() {
   const [collectives, setCollectives] = useState<Collective[]>([]);
 
-  useEffect(() => {
-    api.get("collectives").then((response) => {
-      const collectives = response.data;
+  // useEffect(() => {
+  //   api.get("collectives").then((response) => {
+  //     const collectives = response.data;
 
-      if (collectives) {
-        setCollectives(collectives);
-      }
-    });
-  }, []);
+  //     if (collectives) {
+  //       setCollectives(collectives);
+  //     }
+  //   });
+  // }, []);
 
   return (
     <div id="page-map">

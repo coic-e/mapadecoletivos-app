@@ -5,7 +5,6 @@ import "../styles/pages/create-collective.css";
 import mapIcon from "../utils/mapIcon";
 import Sidebar from "../components/Sidebar/Sidebar";
 import api from "../services/api";
-import { useHistory } from "react-router-dom";
 
 interface Option {
   value: string;
@@ -55,7 +54,7 @@ interface FormData {
 }
 
 function CreateCollective() {
-  const history = useHistory();
+  const history = ()=>{};
 
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -126,7 +125,6 @@ function CreateCollective() {
 
     await api.post("collectives", data).then((response) => {
       alert("Cadastro realizado com sucesso!");
-      history.push("/app");
     });
   };
 

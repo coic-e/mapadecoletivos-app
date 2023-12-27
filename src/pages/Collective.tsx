@@ -31,6 +31,11 @@ interface CollectiveParams {
 }
 
 function Collective() {
+  interface CollectiveParams {
+    id: string;
+    [key: string]: string | undefined;
+  }
+
   const params = useParams<CollectiveParams>();
   const [collective, setCollective] = useState<ICollective>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
