@@ -8,6 +8,8 @@ export default function RootError(): JSX.Element {
   return (
     <div>
       <div>
+        <h1>Oops!</h1>
+        <p>Sorry, an unexpected error has occurred.</p>
         <strong>Error {err.status || 500}</strong>:{" "}
         {err.statusText ?? err.message}
       </div>

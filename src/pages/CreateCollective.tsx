@@ -5,7 +5,7 @@ import "../styles/pages/create-collective.css";
 import mapIcon from "../utils/mapIcon";
 import Sidebar from "../components/Sidebar/Sidebar";
 import api from "../services/api";
-
+const { VITE_USERNAME, VITE_STYLE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 interface Option {
   value: string;
   label: string;
@@ -40,6 +40,20 @@ const optionsUf: Option[] = [
   { value: "TO", label: "TO" },
 ];
 
+const raveTypeOptions = [
+  "Festa",
+  "Festival",
+  "Label",
+  "Radio",
+  "Podcast",
+  "Coletivo",
+  "Nucleo",
+  "Club",
+  "Bar",
+  "Produtora",
+  "outro",
+];
+
 interface FormData {
   name: string;
   about: string;
@@ -54,7 +68,7 @@ interface FormData {
 }
 
 function CreateCollective() {
-  const history = ()=>{};
+  const history = () => {};
 
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -81,20 +95,6 @@ function CreateCollective() {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
-
-  const radioOptions = [
-    "Festa",
-    "Festival",
-    "Label",
-    "Radio",
-    "Podcast",
-    "Coletivo",
-    "Nucleo",
-    "Club",
-    "Bar",
-    "Produtora",
-    "outro",
-  ];
 
   const handleMapClick = (lat: number, lng: number) => {
     setPosition([lat, lng]);
@@ -134,13 +134,17 @@ function CreateCollective() {
     }
 
     const selectedImages = Array.from(event.target.files);
-    setImages(selectedImages);
+
+    setImages((prevImages) => [...prevImages, ...selectedImages]);
 
     const selectedImagesPreview = selectedImages.map((image) => {
       return URL.createObjectURL(image);
     });
 
-    setPreviewImages(selectedImagesPreview);
+    setPreviewImages((prevPreviewImages) => [
+      ...prevPreviewImages,
+      ...selectedImagesPreview,
+    ]);
   };
 
   const handleDeleteImage = (index: number) => {
@@ -171,7 +175,8 @@ function CreateCollective() {
             >
               <MapClickHandler onClick={handleMapClick} />
               <TileLayer
-                url={`https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                attribution='Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
+                url={`https://api.mapbox.com/styles/v1/${VITE_USERNAME}/${VITE_STYLE_ID}/tiles/256/{z}/{x}/{y}@2x?access_token=${VITE_ACCESS_TOKEN}`}
               />
             </MapContainer>
 
@@ -233,37 +238,34 @@ function CreateCollective() {
                     </option>
                   ))}
                 </select>
-              </div>              
+              </div>
             </div>
 
             <div className="input-block">
-                <label htmlFor="city">Cidade</label>
-                <input
-                  id="city"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleInputChange}
-                />
-              </div>
+              <label htmlFor="city">Cidade</label>
+              <input
+                id="city"
+                name="city"
+                value={formData.city}
+                onChange={handleInputChange}
+              />
+            </div>
 
             <div className="input-block">
-              <label>O Coletivo é?</label>
-              <div className="input-block radio-group">
-                {radioOptions.map((option) => (
-                  <label className="radio-container" key={option}>
-                    <input
-                      type="radio"
-                      value={option}
-                      name="type"
-                      onChange={handleInputChange}
-                    />
-                    <span className="custom-radio"></span>
-                    <span>{option}</span>
-                  </label>
-                ))}
-                <div className="input-block input">
-                  <input id="name" />
-                </div>
+              <div className="input-block select">
+                <label htmlFor="rave-type">Tipo</label>
+                <select
+                  id="rave-type"
+                  name="rave-type"
+                  value={formData.type}
+                  onChange={handleInputChange}
+                >
+                  {raveTypeOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -274,7 +276,7 @@ function CreateCollective() {
                 {previewImages.map((image, index) => {
                   return (
                     <div key={image} className="image-item">
-                      <img key={image} src={image} alt={formData.name} />;
+                      <img key={image} src={image} alt={formData.name} />
                       <button onClick={() => handleDeleteImage(index)}>
                         <FiXSquare color="#000" />
                       </button>

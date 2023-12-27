@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiPlus, FiArrowRight } from "react-icons/fi";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-
+const { VITE_USERNAME, VITE_STYLE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 import "leaflet/dist/leaflet.css";
 
 import "../styles/pages/collectives-map.css";
@@ -17,7 +17,22 @@ interface Collective {
 }
 
 function CollectivesMap() {
-  const [collectives, setCollectives] = useState<Collective[]>([]);
+  // const [collectives, setCollectives] = useState<Collective[]>([]);
+  const collectives: Collective[] = [
+    {
+      id: 1,
+      latitude: -13.702797,
+      longitude: -50.6865109,
+      name: "Teste",
+    },
+    {
+      id: 2,
+      latitude: -13.702797,
+
+      longitude: -50.6865109,
+      name: "Teste",
+    },
+  ];
 
   // useEffect(() => {
   //   api.get("collectives").then((response) => {
@@ -48,9 +63,9 @@ function CollectivesMap() {
           height: "100%",
         }}
       >
-        {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"/> */}
         <TileLayer
-          url={`https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+          attribution='Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
+          url={`https://api.mapbox.com/styles/v1/${VITE_USERNAME}/${VITE_STYLE_ID}/tiles/256/{z}/{x}/{y}@2x?access_token=${VITE_ACCESS_TOKEN}`}
         />
         {collectives.map((collective) => {
           return (
@@ -75,7 +90,7 @@ function CollectivesMap() {
         })}
       </MapContainer>
 
-      <Link to="/collectives/create" className="create-collective">
+      <Link to="/raves/create" className="create-collective">
         <FiPlus size={32} color="#FFF" />
       </Link>
     </div>
