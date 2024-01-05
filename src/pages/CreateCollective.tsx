@@ -5,11 +5,10 @@ import "../styles/pages/create-collective.css";
 import mapIcon from "../utils/mapIcon";
 import Sidebar from "../components/Sidebar/Sidebar";
 import api from "../services/api";
+import useZodForm from "../hooks/useZodForm";
 const { VITE_USERNAME, VITE_STYLE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
-interface Option {
-  value: string;
-  label: string;
-}
+import { FormData } from "../interfaces/FormData";
+import { Option } from "../interfaces/OptionUf";
 
 const optionsUf: Option[] = [
   { value: "AL", label: "AL" },
@@ -54,37 +53,21 @@ const raveTypeOptions = [
   "outro",
 ];
 
-interface FormData {
-  name: string;
-  about: string;
-  email: string;
-  uf: string;
-  city: string;
-  type: string;
-  latitude: string;
-  longitude: string;
-  social: string;
-  images?: File[];
-}
-
 function CreateCollective() {
   const history = () => {};
 
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    about: "",
-    email: "",
-    uf: "",
-    city: "",
-    type: "",
-    latitude: "",
-    longitude: "",
-    social: "",
-    images: [],
-  });
+  const {
+    handleSubmit,
+    register,
+    onSubmit,
+    isSubmitting,
+    errors,
+    images,
+    setImages,
+    setValue,
+  } = useZodForm();
 
   const [position, setPosition] = useState<[number, number] | null>(null);
-  const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
   const handleInputChange = (
@@ -93,58 +76,13 @@ function CreateCollective() {
     >
   ) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setValue(name, value);
   };
 
   const handleMapClick = (lat: number, lng: number) => {
     setPosition([lat, lng]);
-    setFormData({
-      ...formData,
-      latitude: lat.toString(),
-      longitude: lng.toString(),
-    });
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const data = new FormData();
-
-    data.append("name", formData.name);
-    data.append("about", formData.about);
-    data.append("email", formData.email);
-    data.append("uf", formData.uf);
-    data.append("city", formData.city);
-    data.append("type", formData.type);
-    data.append("latitude", formData.latitude);
-    data.append("longitude", formData.longitude);
-    data.append("social", formData.social);
-
-    images.forEach((image) => {
-      data.append("images", image);
-    });
-
-    await api.post("collectives", data).then((response) => {
-      alert("Cadastro realizado com sucesso!");
-    });
-  };
-
-  const handleSelectedImage = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) {
-      return;
-    }
-
-    const selectedImages = Array.from(event.target.files);
-
-    setImages((prevImages) => [...prevImages, ...selectedImages]);
-
-    const selectedImagesPreview = selectedImages.map((image) => {
-      return URL.createObjectURL(image);
-    });
-
-    setPreviewImages((prevPreviewImages) => [
-      ...prevPreviewImages,
-      ...selectedImagesPreview,
-    ]);
+    setValue("latitude", lat.toString());
+    setValue("longitude", lng.toString());
   };
 
   const handleDeleteImage = (index: number) => {
@@ -157,12 +95,31 @@ function CreateCollective() {
     setPreviewImages(newPreviewImages);
   };
 
+  const handleSelectedImage = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) {
+      return;
+    }
+    
+    const selectedImages = Array.from(event.target.files);
+    setImages((prevImages) => [...prevImages, ...selectedImages]);
+    const selectedImagesPreview = selectedImages.map((image) => {
+      return URL.createObjectURL(image);
+    });
+    setPreviewImages((prevPreviewImages) => [
+      ...prevPreviewImages,
+      ...selectedImagesPreview,
+    ]);
+  }
+
   return (
     <div id="page-create-collective">
       <Sidebar />
 
       <main>
-        <form className="create-collective-form" onSubmit={handleSubmit}>
+        <form
+          className="create-collective-form"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <fieldset>
             <legend>Dados</legend>
 
@@ -184,11 +141,12 @@ function CreateCollective() {
               <label htmlFor="name">Nome</label>
               <input
                 id="name"
-                name="name"
-                value={formData.name}
+                {...register("name")}
                 onChange={handleInputChange}
               />
             </div>
+
+            {errors?.name && <span>{errors.name.message}</span>}
 
             <div className="input-block">
               <label htmlFor="about">
@@ -196,44 +154,50 @@ function CreateCollective() {
               </label>
               <textarea
                 id="about"
-                name="about"
                 maxLength={300}
-                value={formData.about}
+                {...register("about")}
                 onChange={handleInputChange}
               ></textarea>
             </div>
+
+            {errors?.about && <span>{errors.about.message}</span>}
 
             <div className="input-block">
               <label htmlFor="email">E-mail</label>
               <input
                 id="email"
-                name="email"
-                value={formData.email}
+                {...register("email")}
                 onChange={handleInputChange}
               />
             </div>
+
+            {errors?.email && <span>{errors.email.message}</span>}
 
             <div className="input-block">
               <label htmlFor="social">Social</label>
               <input
                 id="social"
-                name="social"
-                value={formData.social}
+                {...register("social")}
                 onChange={handleInputChange}
               />
             </div>
+
+            {errors?.social && <span>{errors.social.message}</span>}
 
             <div className="input-block">
               <div className="input-block select">
                 <label htmlFor="uf">UF</label>
                 <select
                   id="uf"
-                  name="uf"
-                  value={formData.uf}
+                  {...register("uf")}
                   onChange={handleInputChange}
                 >
                   {optionsUf.map((option) => (
-                    <option key={option.value} value={option.value}>
+                    <option
+                      key={option.value}
+                      value={option.value}
+                      {...register("uf")}
+                    >
                       {option.label}
                     </option>
                   ))}
@@ -241,33 +205,37 @@ function CreateCollective() {
               </div>
             </div>
 
+            {errors?.uf && <span>{errors.uf.message}</span>}
+
             <div className="input-block">
               <label htmlFor="city">Cidade</label>
               <input
                 id="city"
-                name="city"
-                value={formData.city}
+                {...register("city")}
                 onChange={handleInputChange}
               />
             </div>
+
+            {errors?.city && <span>{errors.city.message}</span>}
 
             <div className="input-block">
               <div className="input-block select">
                 <label htmlFor="rave-type">Tipo</label>
                 <select
                   id="rave-type"
-                  name="rave-type"
-                  value={formData.type}
+                  {...register("type")}
                   onChange={handleInputChange}
                 >
                   {raveTypeOptions.map((option) => (
-                    <option key={option} value={option}>
+                    <option key={option} value={option} {...register("type")}>
                       {option}
                     </option>
                   ))}
                 </select>
               </div>
             </div>
+
+            {errors?.type && <span>{errors.type.message}</span>}
 
             <div className="input-block">
               <label htmlFor="images">Fotos</label>
@@ -288,6 +256,7 @@ function CreateCollective() {
                   <FiPlus size={24} color="#15b6d6" />
                 </label>
               </div>
+
               <input
                 multiple
                 onChange={handleSelectedImage}
@@ -297,7 +266,11 @@ function CreateCollective() {
             </div>
           </fieldset>
 
-          <button className="confirm-button" type="submit">
+          <button
+            className="confirm-button"
+            type="submit"
+            disabled={isSubmitting}
+          >
             Confirmar
           </button>
         </form>
