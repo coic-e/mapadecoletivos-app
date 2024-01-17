@@ -70,14 +70,14 @@ function CreateCollective() {
   const [position, setPosition] = useState<[number, number] | null>(null);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
-  const handleInputChange = (
-    event: ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = event.target;
-    setValue(name, value);
-  };
+  // const handleInputChange = (
+  //   event: ChangeEvent<
+  //     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+  //   >
+  // ) => {
+  //   const { name, value } = event.target;
+  //   setValue(name, value);
+  // };
 
   const handleMapClick = (lat: number, lng: number) => {
     setPosition([lat, lng]);
@@ -142,7 +142,6 @@ function CreateCollective() {
               <input
                 id="name"
                 {...register("name")}
-                onChange={handleInputChange}
               />
             </div>
 
@@ -156,7 +155,6 @@ function CreateCollective() {
                 id="about"
                 maxLength={300}
                 {...register("about")}
-                onChange={handleInputChange}
               ></textarea>
             </div>
 
@@ -167,7 +165,6 @@ function CreateCollective() {
               <input
                 id="email"
                 {...register("email")}
-                onChange={handleInputChange}
               />
             </div>
 
@@ -178,7 +175,6 @@ function CreateCollective() {
               <input
                 id="social"
                 {...register("social")}
-                onChange={handleInputChange}
               />
             </div>
 
@@ -190,7 +186,6 @@ function CreateCollective() {
                 <select
                   id="uf"
                   {...register("uf")}
-                  onChange={handleInputChange}
                 >
                   {optionsUf.map((option) => (
                     <option
@@ -212,7 +207,6 @@ function CreateCollective() {
               <input
                 id="city"
                 {...register("city")}
-                onChange={handleInputChange}
               />
             </div>
 
@@ -224,7 +218,6 @@ function CreateCollective() {
                 <select
                   id="rave-type"
                   {...register("type")}
-                  onChange={handleInputChange}
                 >
                   {raveTypeOptions.map((option) => (
                     <option key={option} value={option} {...register("type")}>
@@ -244,7 +237,7 @@ function CreateCollective() {
                 {previewImages.map((image, index) => {
                   return (
                     <div key={image} className="image-item">
-                      <img key={image} src={image} alt={formData.name} />
+                      <img key={image} src={image} alt="name" />
                       <button onClick={() => handleDeleteImage(index)}>
                         <FiXSquare color="#000" />
                       </button>
