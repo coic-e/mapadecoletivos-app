@@ -7,7 +7,7 @@
 
 aside.app-sidebar {
   position: fixed !important;
-  height: 100vh;
+  height: 100%;
   padding: 0 24px 32px;
   /* padding: 32px 24px; */
   background: linear-gradient(
@@ -19,6 +19,16 @@ aside.app-sidebar {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 800px) {
+    flex-direction: row;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+    padding: 24px 32px;
+  }
 }
 
 aside.app-sidebar img {
@@ -28,6 +38,11 @@ aside.app-sidebar img {
   top: 0;
   left: 2px;
   align-self: flex-start;
+
+  @media (max-width: 768px) {
+    width: 86px;
+    height: 98px;
+  }
 }
 
 aside.app-sidebar footer a,
